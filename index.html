@@ -1,276 +1,313 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Mis Gastos</title>
-<meta name="theme-color" content="#0f172a" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Gastos" />
-<link rel="manifest" href="manifest.json" />
-<style>
-  :root {
-    --bg: #0f172a;
-    --card: #1e293b;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-    --accent: #22c55e;
-    --danger: #f87171;
-    --border: #334155;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    padding-bottom: 80px;
-  }
-  header {
-    padding: 20px 16px 12px;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 10;
-    border-bottom: 1px solid var(--border);
-  }
-  h1 { font-size: 20px; margin: 0 0 12px; }
-  select, input, button {
-    font-size: 16px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--text);
-    padding: 10px 12px;
-  }
-  select { width: 100%; }
-  main { padding: 16px; max-width: 640px; margin: 0 auto; }
-  .cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-  .card { background: var(--card); border-radius: 12px; padding: 12px; text-align: center; }
-  .card .label { color: var(--muted); font-size: 12px; }
-  .card .value { font-size: 16px; font-weight: 600; margin-top: 4px; }
-  .ingreso { color: var(--accent); }
-  .egreso { color: var(--danger); }
-  h2 { font-size: 15px; color: var(--muted); margin: 20px 0 8px; text-transform: uppercase; letter-spacing: .04em; }
-  .catbar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-  .catbar .name { width: 100px; font-size: 13px; color: var(--muted); flex-shrink: 0; }
-  .catbar .track { flex: 1; background: var(--border); border-radius: 6px; height: 10px; overflow: hidden; }
-  .catbar .fill { height: 100%; background: var(--accent); }
-  .catbar .amt { font-size: 12px; color: var(--muted); width: 70px; text-align: right; flex-shrink: 0; }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  td, th { padding: 8px 4px; border-bottom: 1px solid var(--border); text-align: left; }
-  th { color: var(--muted); font-weight: 500; font-size: 12px; }
-  form { display: flex; flex-direction: column; gap: 10px; }
-  form .row { display: flex; gap: 10px; }
-  form .row > * { flex: 1; }
-  button.primary { background: var(--accent); color: #052e16; font-weight: 600; border: none; }
-  nav.tabs {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    display: flex; background: var(--card); border-top: 1px solid var(--border);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  nav.tabs button {
-    flex: 1; background: none; border: none; border-radius: 0;
-    color: var(--muted); padding: 14px 0; font-size: 13px;
-  }
-  nav.tabs button.active { color: var(--accent); }
-  .view { display: none; }
-  .view.active { display: block; }
-  .empty { color: var(--muted); text-align: center; padding: 24px; }
-  .toast {
-    position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
-    background: var(--accent); color: #052e16; padding: 10px 16px;
-    border-radius: 10px; font-size: 14px; font-weight: 600;
-    display: none; z-index: 100;
-  }
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Mis Gastos</title>
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Gastos" />
+  <link rel="manifest" href="manifest.json" />
+  <style>
+      :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #22c55e;
+            --danger: #f87171;
+            --border: #334155;
+      }
+      * { box-sizing: border-box; }
+      body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding-bottom: 80px;
+      }
+      header {
+            padding: 20px 16px 12px;
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 10;
+            border-bottom: 1px solid var(--border);
+      }
+      h1 { font-size: 20px; margin: 0 0 12px; }
+      select, input, button {
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            padding: 10px 12px;
+      }
+      select { width: 100%; }
+      main { padding: 16px; max-width: 640px; margin: 0 auto; }
+      .cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+      .card { background: var(--card); border-radius: 12px; padding: 12px; text-align: center; }
+      .card .label { color: var(--muted); font-size: 12px; }
+      .card .value { font-size: 16px; font-weight: 600; margin-top: 4px; }
+      .ingreso { color: var(--accent); }
+      .egreso { color: var(--danger); }
+      h2 { font-size: 15px; color: var(--muted); margin: 20px 0 8px; text-transform: uppercase; letter-spacing: .04em; }
+      .catbar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+      .catbar .name { width: 100px; font-size: 13px; color: var(--muted); flex-shrink: 0; }
+      .catbar .track { flex: 1; background: var(--border); border-radius: 6px; height: 10px; overflow: hidden; }
+      .catbar .fill { height: 100%; background: var(--accent); }
+      .catbar .amt { font-size: 12px; color: var(--muted); width: 70px; text-align: right; flex-shrink: 0; }
+      table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      td, th { padding: 8px 4px; border-bottom: 1px solid var(--border); text-align: left; }
+      th { color: var(--muted); font-weight: 500; font-size: 12px; }
+      form { display: flex; flex-direction: column; gap: 10px; }
+      form .row { display: flex; gap: 10px; }
+      form .row > * { flex: 1; }
+      button.primary { background: var(--accent); color: #052e16; font-weight: 600; border: none; }
+      nav.tabs {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            display: flex; background: var(--card); border-top: 1px solid var(--border);
+            padding-bottom: env(safe-area-inset-bottom);
+      }
+      nav.tabs button {
+            flex: 1; background: none; border: none; border-radius: 0;
+            color: var(--muted); padding: 14px 0; font-size: 13px;
+      }
+      nav.tabs button.active { color: var(--accent); }
+      .view { display: none; }
+      .view.active { display: block; }
+      .empty { color: var(--muted); text-align: center; padding: 24px; }
+      .toast {
+            position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: #052e16; padding: 10px 16px;
+            border-radius: 10px; font-size: 14px; font-weight: 600;
+            display: none; z-index: 100;
+      }
+    </style>
+  </head>
+  <body>
 
-<div class="toast" id="toast"></div>
+    <div class="toast" id="toast"></div>div>
 
-<header>
-  <h1>💸 Mis Gastos</h1>
-  <select id="mesSelect"></select>
-</header>
+    <header>
+        <h1>Mis Gastos</h1>
+      <select id="mesSelect"></select>select>
+    </header>
+  
+  <main>
 
-<main>
+      <section id="view-resumen" class="view active">
+            <div class="cards">
+                    <div class="card"><div class="label">Ingresos</div>div><div class="value ingreso" id="totalIngresos">-</div>div></div>div>
+                    <div class="card"><div class="label">Egresos</div>div><div class="value egreso" id="totalEgresos">-</div>div></div>div>
+                    <div class="card"><div class="label">Disponible</div>div><div class="value" id="disponible">-</div>div></div>div>
+            </div>div>
 
-  <section id="view-resumen" class="view active">
-    <div class="cards">
-      <div class="card"><div class="label">Ingresos</div><div class="value ingreso" id="totalIngresos">-</div></div>
-      <div class="card"><div class="label">Egresos</div><div class="value egreso" id="totalEgresos">-</div></div>
-      <div class="card"><div class="label">Disponible</div><div class="value" id="disponible">-</div></div>
-    </div>
+            <h2>Gastos por categoria</h2>
+            <div id="catList"></div>div>
+      </section>section>
 
-    <h2>Gastos por categoría</h2>
-    <div id="catList"></div>
-  </section>
+      <section id="view-cargar" class="view">
+            <h2>Nuevo movimiento</h2>
+            <form id="form">
+                    <div class="row">
+                              <select id="f_tipo">
+                                          <option value="Egreso">Egreso</option>option>
+                                          <option value="Ingreso">Ingreso</option>option>
+                              </select>select>
+                              <input type="date" id="f_fecha" required />
+                    </div>div>
+                    <input type="text" id="f_categoria" placeholder="Categoria (ej: COMIDA)" required />
+                    <input type="text" id="f_descripcion" placeholder="Descripcion" required />
+                    <input type="number" id="f_monto" placeholder="Monto" step="0.01" required />
+                    <button type="submit" class="primary">Guardar</button>button>
+            </form>form>
+      </section>section>
 
-  <section id="view-cargar" class="view">
-    <h2>Nuevo movimiento</h2>
-    <form id="form">
-      <div class="row">
-        <select id="f_tipo">
-          <option value="Egreso">Egreso</option>
-          <option value="Ingreso">Ingreso</option>
-        </select>
-        <input type="date" id="f_fecha" required />
-      </div>
-      <input type="text" id="f_categoria" placeholder="Categoría (ej: COMIDA)" required />
-      <input type="text" id="f_descripcion" placeholder="Descripción" required />
-      <input type="number" id="f_monto" placeholder="Monto" step="0.01" required />
-      <button type="submit" class="primary">Guardar</button>
-    </form>
-  </section>
+      <section id="view-movimientos" class="view">
+            <h2>Movimientos del mes</h2>
+            <table>
+                    <thead><tr><th>Fecha</th><th>Categoria</th><th>Descripcion</th><th>Monto</th></tr></thead>
+                  <tbody id="movBody"></tbody>tbody>
+            </table>
+          <div id="movEmpty" class="empty" style="display:none">Sin movimientos</div>div>
+      </section>section>
+  
+  </main>
+  
+  <nav class="tabs">
+    <button data-view="resumen" class="active">Resumen</button>button>
+    <button data-view="cargar">Cargar</button>button>
+    <button data-view="movimientos">Movimientos</button>button>
+  </nav>nav>
+  
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbxe-PMbHpQQHP-Im_-lFGC0UXW_4bSKWcPFS3fZuO5E32jAN3TPVoA3BZZmOC19QK027g/exec";
 
-  <section id="view-movimientos" class="view">
-    <h2>Movimientos del mes</h2>
-    <table>
-      <thead><tr><th>Fecha</th><th>Categoría</th><th>Descripción</th><th>Monto</th></tr></thead>
-      <tbody id="movBody"></tbody>
-    </table>
-    <div id="movEmpty" class="empty" style="display:none">Sin movimientos</div>
-  </section>
+    let allData = [];
+    let currentMes = "TODOS";
 
-</main>
-
-<nav class="tabs">
-  <button data-view="resumen" class="active">Resumen</button>
-  <button data-view="cargar">Cargar</button>
-  <button data-view="movimientos">Movimientos</button>
-</nav>
-
-<script>
-// =======================================================
-// CONFIGURACIÓN: pegá acá la URL de tu Apps Script Web App
-// =======================================================
-const API_URL = "https://script.google.com/macros/s/AKfycbxe-PMbHpQQHP-Im_-lFGC0UXW_4bSKWcPFS3fZuO5E32jAN3TPVoA3BZZmOC19QK027g/exec";
-
-let allData = [];
-let currentMes = "TODOS";
-
-function formatMoney(n) {
-  return "$" + Number(n || 0).toLocaleString("es-AR", { maximumFractionDigits: 0 });
-}
-
-function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.style.display = "block";
-  setTimeout(() => (t.style.display = "none"), 2200);
-}
-
-async function loadData() {
-  try {
-    const res = await fetch(API_URL);
-    const json = await res.json();
-    if (json.ok) {
-      allData = json.data;
-      populateMesSelect();
-      render();
-    } else {
-      showToast("Error cargando datos");
+    function formatMoney(n) {
+        return "$" + Number(n || 0).toLocaleString("es-AR", { maximumFractionDigits: 0 });
     }
-  } catch (err) {
-    showToast("No se pudo conectar con la planilla");
-    console.error(err);
-  }
-}
 
-function populateMesSelect() {
-  const meses = [...new Set(allData.map((r) => r.Mes))];
-  const sel = document.getElementById("mesSelect");
-  sel.innerHTML = '<option value="TODOS">Todos los meses</option>' +
-    meses.map((m) => `<option value="${m}">${m}</option>`).join("");
-  sel.value = currentMes;
-}
+    function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.style.display = "block";
+        setTimeout(() => (t.style.display = "none"), 2200);
+    }
 
-function filtered() {
-  if (currentMes === "TODOS") return allData;
-  return allData.filter((r) => r.Mes === currentMes);
-}
+    async function loadData() {
+        return new Promise((resolve) => {
+              const cbName = "handleGastos_" + Date.now();
+              const scriptId = cbName + "_s";
+              const cleanup = () => {
+                      delete window[cbName];
+                      const s = document.getElementById(scriptId);
+                      if (s) s.remove();
+              };
+              window[cbName] = function (json) {
+                      cleanup();
+                      if (json && json.ok) {
+                                allData = json.data;
+                                populateMesSelect();
+                                render();
+                      } else {
+                                showToast("Error cargando datos");
+                      }
+                      resolve();
+              };
+              const script = document.createElement("script");
+              script.id = scriptId;
+              script.src = API_URL + "?callback=" + cbName;
+              script.onerror = () => {
+                      cleanup();
+                      showToast("No se pudo conectar con la planilla");
+                      resolve();
+              };
+              document.body.appendChild(script);
+        });
+    }
 
-function render() {
-  const data = filtered();
-  const ingresos = data.filter((r) => r.Tipo === "Ingreso").reduce((a, r) => a + Number(r.Monto || 0), 0);
-  const egresos = data.filter((r) => r.Tipo === "Egreso").reduce((a, r) => a + Number(r.Monto || 0), 0);
+    function populateMesSelect() {
+        const meses = [...new Set(allData.map((r) => r.Mes))];
+        const sel = document.getElementById("mesSelect");
+        sel.innerHTML = '<option value="TODOS">Todos los meses</option>' +
+              meses.map((m) => `<option value="${m}">${m}</option>`).join("");
+        sel.value = currentMes;
+    }
 
-  document.getElementById("totalIngresos").textContent = formatMoney(ingresos);
-  document.getElementById("totalEgresos").textContent = formatMoney(egresos);
-  document.getElementById("disponible").textContent = formatMoney(ingresos - egresos);
+    function filtered() {
+        if (currentMes === "TODOS") return allData;
+        return allData.filter((r) => r.Mes === currentMes);
+    }
 
-  const porCategoria = {};
-  data.filter((r) => r.Tipo === "Egreso").forEach((r) => {
-    const cat = r.Categoria || "SIN CATEGORÍA";
-    porCategoria[cat] = (porCategoria[cat] || 0) + Number(r.Monto || 0);
-  });
-  const maxVal = Math.max(1, ...Object.values(porCategoria));
-  const catList = document.getElementById("catList");
-  catList.innerHTML = Object.entries(porCategoria)
-    .sort((a, b) => b[1] - a[1])
-    .map(([cat, val]) => `
-      <div class="catbar">
-        <div class="name">${cat}</div>
-        <div class="track"><div class="fill" style="width:${(val / maxVal) * 100}%"></div></div>
-        <div class="amt">${formatMoney(val)}</div>
-      </div>`)
-    .join("") || '<div class="empty">Sin egresos este período</div>';
+    function render() {
+        const data = filtered();
+        const ingresos = data.filter((r) => r.Tipo === "Ingreso").reduce((a, r) => a + Number(r.Monto || 0), 0);
+        const egresos = data.filter((r) => r.Tipo === "Egreso").reduce((a, r) => a + Number(r.Monto || 0), 0);
 
-  const movBody = document.getElementById("movBody");
-  const sorted = [...data].sort((a, b) => (b.Fecha || "").localeCompare(a.Fecha || ""));
-  movBody.innerHTML = sorted
-    .map((r) => `
-      <tr>
-        <td>${r.Fecha || "-"}</td>
-        <td>${r.Categoria || "-"}</td>
-        <td>${r.Descripcion || "-"}</td>
-        <td style="color:${r.Tipo === "Ingreso" ? "var(--accent)" : "var(--danger)"}">${formatMoney(r.Monto)}</td>
-      </tr>`)
-    .join("");
-  document.getElementById("movEmpty").style.display = sorted.length ? "none" : "block";
-}
+        document.getElementById("totalIngresos").textContent = formatMoney(ingresos);
+        document.getElementById("totalEgresos").textContent = formatMoney(egresos);
+        document.getElementById("disponible").textContent = formatMoney(ingresos - egresos);
 
-document.getElementById("mesSelect").addEventListener("change", (e) => {
-  currentMes = e.target.value;
-  render();
-});
+        const porCategoria = {};
+        data.filter((r) => r.Tipo === "Egreso").forEach((r) => {
+              const cat = r.Categoria || "SIN CATEGORIA";
+              porCategoria[cat] = (porCategoria[cat] || 0) + Number(r.Monto || 0);
+        });
+        const maxVal = Math.max(1, ...Object.values(porCategoria));
+        const catList = document.getElementById("catList");
+        catList.innerHTML = Object.entries(porCategoria)
+          .sort((a, b) => b[1] - a[1])
+          .map(([cat, val]) => `
+                <div class="catbar">
+                        <div class="name">${cat}</div>
+                                <div class="track"><div class="fill" style="width:${(val / maxVal) * 100}%"></div></div>
+                                        <div class="amt">${formatMoney(val)}</div>
+                                              </div>`)
+          .join("") || '<div class="empty">Sin egresos este periodo</div>';
 
-document.querySelectorAll("nav.tabs button").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll("nav.tabs button").forEach((b) => b.classList.remove("active"));
-    document.querySelectorAll(".view").forEach((v) => v.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById("view-" + btn.dataset.view).classList.add("active");
-  });
-});
+        const movBody = document.getElementById("movBody");
+        const sorted = [...data].sort((a, b) => (b.Fecha || "").localeCompare(a.Fecha || ""));
+        movBody.innerHTML = sorted
+          .map((r) => `
+                <tr>
+                        <td>${r.Fecha || "-"}</td>
+                                <td>${r.Categoria || "-"}</td>
+                                        <td>${r.Descripcion || "-"}</td>
+                                                <td style="color:${r.Tipo === "Ingreso" ? "var(--accent)" : "var(--danger)"}">${formatMoney(r.Monto)}</td>
+                                                      </tr>`)
+          .join("");
+        document.getElementById("movEmpty").style.display = sorted.length ? "none" : "block";
+    }
 
-document.getElementById("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const body = {
-    tipo: document.getElementById("f_tipo").value,
-    fecha: document.getElementById("f_fecha").value,
-    categoria: document.getElementById("f_categoria").value.toUpperCase(),
-    descripcion: document.getElementById("f_descripcion").value,
-    monto: document.getElementById("f_monto").value
-  };
-  try {
-    await fetch(API_URL, { method: "POST", body: JSON.stringify(body) });
-    showToast("Guardado ✔");
-    e.target.reset();
-    await loadData();
-  } catch (err) {
-    showToast("Error al guardar");
-    console.error(err);
-  }
-});
+    document.getElementById("mesSelect").addEventListener("change", (e) => {
+        currentMes = e.target.value;
+        render();
+    });
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js").catch(() => {});
-}
+    document.querySelectorAll("nav.tabs button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+              document.querySelectorAll("nav.tabs button").forEach((b) => b.classList.remove("active"));
+              document.querySelectorAll(".view").forEach((v) => v.classList.remove("active"));
+              btn.classList.add("active");
+              document.getElementById("view-" + btn.dataset.view).classList.add("active");
+        });
+    });
 
-loadData();
-</script>
-</body>
+    document.getElementById("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const params = new URLSearchParams({
+              action: "add",
+              tipo: document.getElementById("f_tipo").value,
+              fecha: document.getElementById("f_fecha").value,
+              categoria: document.getElementById("f_categoria").value.toUpperCase(),
+              descripcion: document.getElementById("f_descripcion").value,
+              monto: document.getElementById("f_monto").value
+        });
+        const cbName = "handleAdd_" + Date.now();
+        const scriptId = cbName + "_s";
+        const cleanup = () => {
+              delete window[cbName];
+              const s = document.getElementById(scriptId);
+              if (s) s.remove();
+        };
+        window[cbName] = function (json) {
+              cleanup();
+              if (json && json.ok) {
+                      showToast("Guardado");
+                      e.target.reset();
+                      loadData();
+              } else {
+                      showToast("Error al guardar");
+              }
+        };
+        const script = document.createElement("script");
+        script.id = scriptId;
+        script.src = API_URL + "?" + params.toString() + "&callback=" + cbName;
+        script.onerror = () => {
+              cleanup();
+              showToast("Error al guardar");
+        };
+        document.body.appendChild(script);
+    });
+
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+
+    loadData();
+  </script>
+  </body>
 </html>
+
+  </script></th></th></tr></thead>
+            </table>
+  </main></h1>
+    </header>
+  </body>
+  </style></title>
+  </head>
